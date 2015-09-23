@@ -1,9 +1,9 @@
-=== PMPro WP Affiliate Platform ===
+=== Paid Memberships Pro - WP Affiliate Platform Add On ===
 Contributors: strangerstudios
-Tags: pmpro, membership, affiliates, wp-affiliate-platform
+Tags: paid memberships pro, pmpro, membership, affiliates, wp-affiliate-platform
 Requires at least: 3.5
-Tested up to: 3.9.1
-Stable tag: .3.1.1
+Tested up to: 4.3.1
+Stable tag: 1.7
 
 Process an affiliate via WP Affiliate Platform after a PMPro checkout.
 
@@ -24,6 +24,10 @@ This plugin requires that both WP Affiliate Platform and Paid Memberships Pro ar
 Please post it in the issues section of GitHub and we'll fix it as soon as we can. Thanks for helping. https://github.com/strangerstudios/pmpro-wp-affiliate-platform/issues
 
 == Changelog ==
+= 1.7 =
+* Merged in updates from the WP Affiliate Platform version of this addon v1.6
+* Now has support for PayPal Standard and 2Checkout.
+* Better handling of recurring orders.
 
 = .3.1.1 =
 * Added readme.
