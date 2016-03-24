@@ -3,7 +3,7 @@
 Plugin Name: Paid Memberships Pro - WP Affiliate Platform Integration Add On
 Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-dev/
 Description: Process an affiliate via WP Affiliate Platform after a PMPro checkout.
-Version: 1.7
+Version: 1.7.1
 Author: Stranger Studios, Tips and Tricks HQ
 Author URI: http://www.strangerstudios.com
 		 
@@ -50,10 +50,13 @@ add_action("pmpro_after_checkout", "wpa_pmpro_after_checkout");
 	For new orders (e.g. recurring orders via web hooks) check if a previous affiliate id was used and process
 */
 function wpa_pmpro_add_order($morder)
-{	
-	if(!empty($morder->total))
+{
+	if(!empty($morder->total) || !empty($morder->subtotal))
 	{
-		$sale_amt = $morder->total; //TODO - The commission will be calculated based on this amount
+		if(!empty($morder->total))
+			$sale_amt = $morder->total; //TODO - The commission will be calculated based on this amount
+		else
+			$sale_amt = $morder->subtotal;
 		$unique_transaction_id = $morder->code; //TODO - The unique transaction ID for reference
 		$muser = get_userdata($morder->user_id);
 		$email = $muser->user_email; //TODO - Customer email for record
@@ -92,7 +95,7 @@ add_action("pmpro_add_order", "wpa_pmpro_add_order");
 function wpa_pmpro_added_order($morder)
 {
 	global $wpa_pmpro_affiliate_id;
-		
+	
 	if(!empty($wpa_pmpro_affiliate_id))
 	{
 		$morder->affiliate_id = $wpa_pmpro_affiliate_id;
