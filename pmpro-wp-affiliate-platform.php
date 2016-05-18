@@ -9,6 +9,20 @@ Author URI: http://www.strangerstudios.com
 		 
 Both Paid Memberships Pro (http://wordpress.org/extend/plugins/paid-memberships-pro/) and WP Affiliate Platform (http://www.tipsandtricks-hq.com/wordpress-affiliate/) must be installed and activated.
 */
+
+/**
+ * Temporary function to deal with missing affilaite_log_debug functionality
+ * @param string $text - The debug message
+ * @param boolean $show - Whether to actually log something (or not)
+ */
+if (!function_exists('wp_affiliate_log_debug')) {
+	function wp_affiliate_log_debug( $text, $show ) {
+		
+		if (true === $show) {
+			error_log($text);
+		}
+	}
+}
 /*
 	Track affiliates after checkout.
 */
