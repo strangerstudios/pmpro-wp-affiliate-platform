@@ -3,7 +3,7 @@
 Plugin Name: Paid Memberships Pro - WP Affiliate Platform Integration Add On
 Plugin URI: http://www.paidmembershipspro.com/wp/pmpro-dev/
 Description: Process an affiliate via WP Affiliate Platform after a PMPro checkout.
-Version: 1.7.1
+Version: 1.7.2
 Author: Stranger Studios, Tips and Tricks HQ
 Author URI: http://www.strangerstudios.com
 		 
@@ -14,6 +14,11 @@ Both Paid Memberships Pro (http://wordpress.org/extend/plugins/paid-memberships-
 */
 function wpa_pmpro_after_checkout($user_id)
 {	
+
+	if ( ! defined( 'WP_AFFILIATE_PLATFORM_VERSION' ) ) {
+		return;
+	}
+
 	//get order
 	$morder = new MemberOrder();	
 	$morder->getLastMemberOrder($user_id);
@@ -51,6 +56,10 @@ add_action("pmpro_after_checkout", "wpa_pmpro_after_checkout");
 */
 function wpa_pmpro_add_order($morder)
 {
+	if ( ! defined( 'WP_AFFILIATE_PLATFORM_VERSION' ) ) {
+		return;
+	}
+
 	if(!empty($morder->total) || !empty($morder->subtotal))
 	{
 		if(!empty($morder->total))
@@ -94,6 +103,11 @@ add_action("pmpro_add_order", "wpa_pmpro_add_order");
 */
 function wpa_pmpro_added_order($morder)
 {
+
+	if ( ! defined( 'WP_AFFILIATE_PLATFORM_VERSION' ) ) {
+		return;
+	}
+
 	global $wpa_pmpro_affiliate_id;
 	
 	if(!empty($wpa_pmpro_affiliate_id))
@@ -113,6 +127,9 @@ add_action("pmpro_orders_show_affiliate_ids", "__return_true");
 */
 function wpa_pmpro_email_body($body, $email)
 {
+	if ( ! defined( 'WP_AFFILIATE_PLATFORM_VERSION' ) ) {
+		return;
+	}
 	//is this a checkout email to admins?
 	if(strpos($email->template, "checkout") !== false && strpos($email->template, "admin") !== false)
 	{
@@ -134,6 +151,10 @@ add_action('pmpro_email_body', 'wpa_pmpro_email_body', 10, 2);
 	For handlings gateways like PayPal Standard and 2Checkout that update the order status when payment has gone through.
 */
 function wpa_pmpro_update_order($order) {
+	if ( ! defined( 'WP_AFFILIATE_PLATFORM_VERSION' ) ) {
+		return;
+	}
+
     global $wpdb;
 	wp_affiliate_log_debug("PMPRO Integration - handling pmpro_update_order hook", true);
     
@@ -196,6 +217,10 @@ add_action("pmpro_update_order", "wpa_pmpro_update_order");
 	Save affiliate id before checkout
 */
 function wpa_pmpro_save_id_before_checkout($user_id, $morder) {
+	if ( ! defined( 'WP_AFFILIATE_PLATFORM_VERSION' ) ) {
+		return;
+	}
+
     wp_affiliate_log_debug("wpa_pmpro_save_id_before_checkout() - user id: " . $user_id . ". Order ID: " . $morder->code, true);
     $referrer = $_COOKIE['ap_id'];
 
