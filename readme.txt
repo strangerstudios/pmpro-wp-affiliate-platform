@@ -2,7 +2,7 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, pmpro, membership, affiliates, wp-affiliate-platform
 Requires at least: 4.7
-Tested up to: 5
+Tested up to: 5.2.2
 Stable tag: 1.7.2
 
 Process an affiliate via WP Affiliate Platform after a PMPro checkout.
