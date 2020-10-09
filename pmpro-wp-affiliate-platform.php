@@ -9,6 +9,27 @@ Author URI: http://www.strangerstudios.com
 		 
 Both Paid Memberships Pro (http://wordpress.org/extend/plugins/paid-memberships-pro/) and WP Affiliate Platform (http://www.tipsandtricks-hq.com/wordpress-affiliate/) must be installed and activated.
 */
+
+/**
+ * Handle cases where the wp_affiliate_log_debug() function doesn't exist
+ * @param string $msg - Message to save to error log if DEBUG is defined
+ * @param boolean $display - Whether to show the message or not
+ * @since 	1.7.2	- Avoid "Fatal error: Call to undefined function"
+ */
+if (!function_exists('wp_affiliate_log_debug')) {
+	function wp_affiliate_log_debug( $msg, $display = true ) {
+		if (defined("WP_DEBUG") && true === WP_DEBUG && true === $display ) {
+			error_log("DEBUG: {$msg}");
+		}
+	}
+}
+
+/**
+ * Make sure WP Affiliate Platform plugin is activated
+ */
+if (false === has_action('wp_affiliate_process_cart_commission')) {
+	return;
+}
 /*
 	Track affiliates after checkout.
 */
