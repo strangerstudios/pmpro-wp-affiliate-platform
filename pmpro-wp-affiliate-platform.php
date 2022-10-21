@@ -3,7 +3,7 @@
 Plugin Name: Paid Memberships Pro - WP Affiliate Platform Integration Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/pmpro-wp-affiliate-platform-integration/
 Description: Process an affiliate via WP Affiliate Platform after a PMPro checkout.
-Version: 1.7.2
+Version: 1.7.3
 Author: Stranger Studios, Tips and Tricks HQ
 Author URI: http://www.strangerstudios.com
 		 
@@ -128,7 +128,7 @@ add_action("pmpro_orders_show_affiliate_ids", "__return_true");
 function wpa_pmpro_email_body($body, $email)
 {
 	if ( ! defined( 'WP_AFFILIATE_PLATFORM_VERSION' ) ) {
-		return;
+		return $body;
 	}
 	//is this a checkout email to admins?
 	if(strpos($email->template, "checkout") !== false && strpos($email->template, "admin") !== false)
@@ -145,7 +145,7 @@ function wpa_pmpro_email_body($body, $email)
 
 	return $body;
 }
-add_action('pmpro_email_body', 'wpa_pmpro_email_body', 10, 2);
+add_filter('pmpro_email_body', 'wpa_pmpro_email_body', 10, 2);
 
 /* 
 	For handlings gateways like PayPal Standard and 2Checkout that update the order status when payment has gone through.
