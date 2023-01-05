@@ -24,7 +24,7 @@ This plugin requires that both WP Affiliate Platform and Paid Memberships Pro ar
 Please post it in the issues section of GitHub and we'll fix it as soon as we can. Thanks for helping. https://github.com/strangerstudios/pmpro-wp-affiliate-platform/issues
 
 == Changelog ==
-= 1.7.3 - 2022-01-05 =
+= 1.7.3 - 2023-01-05 =
 * ENHANCEMENT: Improved sanitization and escaping.
 * BUG FIX: Fixed an issue where emails would not send when Paid Memberships Pro - WP Affiliate Platform Add On installed but WP Affiliate Platform was not/incorrectly configured. (@sc0ttkclark, @jjj)
 
