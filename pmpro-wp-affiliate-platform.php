@@ -1,14 +1,17 @@
 <?php
-/*
-Plugin Name: Paid Memberships Pro - WP Affiliate Platform Integration Add On
-Plugin URI: https://www.paidmembershipspro.com/add-ons/pmpro-wp-affiliate-platform-integration/
-Description: Process an affiliate via WP Affiliate Platform after a PMPro checkout.
-Version: 1.7.2
-Author: Stranger Studios, Tips and Tricks HQ
-Author URI: http://www.strangerstudios.com
-		 
-Both Paid Memberships Pro (http://wordpress.org/extend/plugins/paid-memberships-pro/) and WP Affiliate Platform (http://www.tipsandtricks-hq.com/wordpress-affiliate/) must be installed and activated.
-*/
+/**
+ * Plugin Name: Paid Memberships Pro - WP Affiliate Platform Integration Add On
+ * Plugin URI: https://www.paidmembershipspro.com/add-ons/pmpro-wp-affiliate-platform-integration/
+ * Description: Process an affiliate via WP Affiliate Platform after a PMPro checkout.
+ * Version: 1.7.3
+ * Author: Stranger Studios, Tips and Tricks HQ
+ * Author URI: http://www.strangerstudios.com
+ * Text Domain: pmpro-wp-affiliate-platform
+ * Domain Path: /languages
+ *		 
+ * Both Paid Memberships Pro (http://wordpress.org/extend/plugins/paid-memberships-pro/) and WP Affiliate Platform (http://www.tipsandtricks-hq.com/wordpress-affiliate/) must be installed and activated.
+ */
+
 /*
 	Track affiliates after checkout.
 */
@@ -24,7 +27,7 @@ function wpa_pmpro_after_checkout($user_id)
 	$morder->getLastMemberOrder($user_id);
 	
 	//find referrer
-	$referrer = $_COOKIE['ap_id'];
+	$referrer = sanitize_text_field( $_COOKIE['ap_id'] );
     wp_affiliate_log_debug("wpa_pmpro_after_checkout() - user id: " . $user_id . ". affiliate id: " . $referrer, true);
 
 	//make sure we have a referrer
@@ -139,7 +142,7 @@ function wpa_pmpro_email_body($body, $email)
 		if($order->affiliate_id)
 		{
 			//add ids to email body
-			$body = str_replace("Total Billed:", "Affiliate ID:" . $order->affiliate_id . "<br />Affiliate SubID:" . $order->affiliate_subid . "<br />Total Billed:", $body);
+			$body = str_replace("Total Billed:", "Affiliate ID:" . esc_html( $order->affiliate_id ) . "<br />Affiliate SubID:" . esc_html( $order->affiliate_subid ) . "<br />Total Billed:", $body);
 		}
 	}
 
@@ -165,7 +168,7 @@ function wpa_pmpro_update_order($order) {
 	}
 	
 	//check that the old status was review, token, or pending
-	$old_status_in_review = $wpdb->get_var("SELECT status FROM $wpdb->pmpro_membership_orders WHERE id = '" . $order->id . "' AND status IN('review','token','pending') LIMIT 1");
+	$old_status_in_review = $wpdb->get_var("SELECT status FROM $wpdb->pmpro_membership_orders WHERE id = '" . esc_sql( $order->id ) . "' AND status IN('review','token','pending') LIMIT 1");
 	if(empty($old_status_in_review))
 	{
 		wp_affiliate_log_debug("PMPRO Integration - the old order status is not review, token, or pending. So not an update we are concerned with.", true);   
@@ -175,7 +178,7 @@ function wpa_pmpro_update_order($order) {
     //look for referrer
 	$referrer = $order->affiliate_id;
     if(empty($referrer) && !empty($_COOKIE['ap_id '])){//Try to get it from the cookie if possible
-        $referrer = $_COOKIE['ap_id'];        
+        $referrer = sanitize_text_field( $_COOKIE['ap_id'] );        
     }
 
 	//get some info from the order
@@ -222,7 +225,7 @@ function wpa_pmpro_save_id_before_checkout($user_id, $morder) {
 	}
 
     wp_affiliate_log_debug("wpa_pmpro_save_id_before_checkout() - user id: " . $user_id . ". Order ID: " . $morder->code, true);
-    $referrer = $_COOKIE['ap_id'];
+    $referrer = sanitize_text_field( $_COOKIE['ap_id'] );
 
     //save affiliate id with the order
     wp_affiliate_log_debug("wpa_pmpro_save_id_before_checkout(). Saving affiliate id (" . $referrer . ") with order id: " . $morder->code, true);
@@ -239,8 +242,8 @@ function wpa_pmpro_plugin_row_meta($links, $file) {
 	if(strpos($file, 'pmpro-wp-affiliate-platform.php') !== false)
 	{
 		$new_links = array(
-			'<a href="' . esc_url('http://www.paidmembershipspro.com/add-ons/third-party-integration/pmpro-wp-affiliate-platform-integration/')  . '" title="' . esc_attr( __( 'View Documentation', 'pmpro' ) ) . '">' . __( 'Docs', 'pmpro' ) . '</a>',
-			'<a href="' . esc_url('http://paidmembershipspro.com/support/') . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro' ) ) . '">' . __( 'Support', 'pmpro' ) . '</a>',
+			'<a href="' . esc_url('http://www.paidmembershipspro.com/add-ons/third-party-integration/pmpro-wp-affiliate-platform-integration/')  . '" title="' . esc_attr( __( 'View Documentation', 'pmpro-wp-affiliate-platform' ) ) . '">' . esc_html__( 'Docs', 'pmpro-wp-affiliate-platform' ) . '</a>',
+			'<a href="' . esc_url('http://paidmembershipspro.com/support/') . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro-wp-affiliate-platform' ) ) . '">' . esc_html__( 'Support', 'pmpro-wp-affiliate-platform' ) . '</a>',
 		);
 		$links = array_merge($links, $new_links);
 	}
