@@ -120,7 +120,7 @@ function wpa_pmpro_added_order($morder)
 add_action("pmpro_added_order", "wpa_pmpro_added_order");
 
 //show affiliate id on orders dashboard page
-add_action("pmpro_orders_show_affiliate_ids", "__return_true");
+add_filter("pmpro_orders_show_affiliate_ids", "__return_true");
 
 /*
 	Show affiliate ID in confirmation emails to admins.
@@ -128,7 +128,7 @@ add_action("pmpro_orders_show_affiliate_ids", "__return_true");
 function wpa_pmpro_email_body($body, $email)
 {
 	if ( ! defined( 'WP_AFFILIATE_PLATFORM_VERSION' ) ) {
-		return;
+		return $body;
 	}
 	//is this a checkout email to admins?
 	if(strpos($email->template, "checkout") !== false && strpos($email->template, "admin") !== false)
@@ -145,7 +145,7 @@ function wpa_pmpro_email_body($body, $email)
 
 	return $body;
 }
-add_action('pmpro_email_body', 'wpa_pmpro_email_body', 10, 2);
+add_filter('pmpro_email_body', 'wpa_pmpro_email_body', 10, 2);
 
 /* 
 	For handlings gateways like PayPal Standard and 2Checkout that update the order status when payment has gone through.
