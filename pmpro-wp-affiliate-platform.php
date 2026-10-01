@@ -182,9 +182,6 @@ function wpa_pmpro_update_order($order) {
 		
     //look for referrer
 	$referrer = $order->affiliate_id;
-    if(empty($referrer) && !empty($_COOKIE['ap_id '])){//Try to get it from the cookie if possible
-        $referrer = isset( $_COOKIE['ap_id'] ) ? sanitize_text_field( $_COOKIE['ap_id'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Kept slashed on purpose to preserve the exact referrer value previously passed to WP Affiliate Platform.
-    }
 
 	//get some info from the order
 	$payment_type = $order->payment_type;
@@ -211,13 +208,6 @@ function wpa_pmpro_update_order($order) {
 	else {
         wp_affiliate_log_debug("PMPRO Integration - This transaction has no referrer attached to it. Commission processing is not required.", true);
     }
-	
-	//if order didn't have affiliate ID and we found it in cookie, update the order
-	if(empty($order->affiliate_id) && !empty($referrer)){          
-	   wp_affiliate_log_debug("PMPRO Integration - updated affiliate_id during pmpro_update_order hook.", true);
-	   $order->affiliate_id = $referrer;
-	   $order->saveOrder();
-	}
 }
 add_action("pmpro_update_order", "wpa_pmpro_update_order");
 
