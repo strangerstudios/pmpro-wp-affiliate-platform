@@ -242,7 +242,7 @@ function wpa_pmpro_plugin_row_meta($links, $file) {
 	if(strpos($file, 'pmpro-wp-affiliate-platform.php') !== false)
 	{
 		$new_links = array(
-			'<a href="' . esc_url('http://www.paidmembershipspro.com/add-ons/third-party-integration/pmpro-wp-affiliate-platform-integration/')  . '" title="' . esc_attr( __( 'View Documentation', 'pmpro-wp-affiliate-platform' ) ) . '">' . esc_html__( 'Docs', 'pmpro-wp-affiliate-platform' ) . '</a>',
+			'<a href="' . esc_url('https://www.paidmembershipspro.com/add-ons/pmpro-wp-affiliate-platform-integration/')  . '" title="' . esc_attr( __( 'View Documentation', 'pmpro-wp-affiliate-platform' ) ) . '">' . esc_html__( 'Docs', 'pmpro-wp-affiliate-platform' ) . '</a>',
 			'<a href="' . esc_url('http://paidmembershipspro.com/support/') . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro-wp-affiliate-platform' ) ) . '">' . esc_html__( 'Support', 'pmpro-wp-affiliate-platform' ) . '</a>',
 		);
 		$links = array_merge($links, $new_links);
