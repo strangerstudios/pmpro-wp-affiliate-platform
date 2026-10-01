@@ -250,3 +250,11 @@ function wpa_pmpro_plugin_row_meta($links, $file) {
 	return $links;
 }
 add_filter('plugin_row_meta', 'wpa_pmpro_plugin_row_meta', 10, 2);
+
+/**
+ * Load the languages folder for translations.
+ */
+function wpa_pmpro_load_textdomain() {
+	load_plugin_textdomain( 'pmpro-wp-affiliate-platform', false, basename( dirname( __FILE__ ) ) . '/languages' );
+}
+add_action( 'init', 'wpa_pmpro_load_textdomain' );

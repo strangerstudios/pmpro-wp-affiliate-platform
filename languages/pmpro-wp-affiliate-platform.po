@@ -1,0 +1,56 @@
+# Copyright (C) 2026 Stranger Studios, Tips and Tricks HQ
+# This file is distributed under the same license as the Paid Memberships Pro - WP Affiliate Platform Integration Add On plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Paid Memberships Pro - WP Affiliate Platform Integration Add On 1.7.3\n"
+"Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
+"Last-Translator: Paid Memberships Pro <info@paidmembershipspro.com>\n"
+"Language-Team: Paid Memberships Pro <info@paidmembershipspro.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-01T15:56:15+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: pmpro-wp-affiliate-platform\n"
+
+#. Plugin Name of the plugin
+#: pmpro-wp-affiliate-platform.php
+msgid "Paid Memberships Pro - WP Affiliate Platform Integration Add On"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: pmpro-wp-affiliate-platform.php
+msgid "https://www.paidmembershipspro.com/add-ons/pmpro-wp-affiliate-platform-integration/"
+msgstr ""
+
+#. Description of the plugin
+#: pmpro-wp-affiliate-platform.php
+msgid "Process an affiliate via WP Affiliate Platform after a PMPro checkout."
+msgstr ""
+
+#. Author of the plugin
+#: pmpro-wp-affiliate-platform.php
+msgid "Stranger Studios, Tips and Tricks HQ"
+msgstr ""
+
+#. Author URI of the plugin
+#: pmpro-wp-affiliate-platform.php
+msgid "http://www.strangerstudios.com"
+msgstr ""
+
+#: pmpro-wp-affiliate-platform.php:245
+msgid "View Documentation"
+msgstr ""
+
+#: pmpro-wp-affiliate-platform.php:245
+msgid "Docs"
+msgstr ""
+
+#: pmpro-wp-affiliate-platform.php:246
+msgid "Visit Customer Support Forum"
+msgstr ""
+
+#: pmpro-wp-affiliate-platform.php:246
+msgid "Support"
+msgstr ""
