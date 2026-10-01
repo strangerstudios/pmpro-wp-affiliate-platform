@@ -12,6 +12,10 @@
  * Both Paid Memberships Pro (http://wordpress.org/extend/plugins/paid-memberships-pro/) and WP Affiliate Platform (http://www.tipsandtricks-hq.com/wordpress-affiliate/) must be installed and activated.
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /*
 	Track affiliates after checkout.
 */
@@ -27,7 +31,7 @@ function wpa_pmpro_after_checkout($user_id)
 	$morder->getLastMemberOrder($user_id);
 	
 	//find referrer
-	$referrer = sanitize_text_field( $_COOKIE['ap_id'] );
+	$referrer = isset( $_COOKIE['ap_id'] ) ? sanitize_text_field( $_COOKIE['ap_id'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Kept slashed on purpose to preserve the exact referrer value previously passed to WP Affiliate Platform.
     wp_affiliate_log_debug("wpa_pmpro_after_checkout() - user id: " . $user_id . ". affiliate id: " . $referrer, true);
 
 	//make sure we have a referrer
@@ -168,6 +172,7 @@ function wpa_pmpro_update_order($order) {
 	}
 	
 	//check that the old status was review, token, or pending
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- PMPro custom orders table; order ID is escaped with esc_sql() inside quotes.
 	$old_status_in_review = $wpdb->get_var("SELECT status FROM $wpdb->pmpro_membership_orders WHERE id = '" . esc_sql( $order->id ) . "' AND status IN('review','token','pending') LIMIT 1");
 	if(empty($old_status_in_review))
 	{
@@ -178,7 +183,7 @@ function wpa_pmpro_update_order($order) {
     //look for referrer
 	$referrer = $order->affiliate_id;
     if(empty($referrer) && !empty($_COOKIE['ap_id '])){//Try to get it from the cookie if possible
-        $referrer = sanitize_text_field( $_COOKIE['ap_id'] );        
+        $referrer = isset( $_COOKIE['ap_id'] ) ? sanitize_text_field( $_COOKIE['ap_id'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Kept slashed on purpose to preserve the exact referrer value previously passed to WP Affiliate Platform.
     }
 
 	//get some info from the order
@@ -225,7 +230,7 @@ function wpa_pmpro_save_id_before_checkout($user_id, $morder) {
 	}
 
     wp_affiliate_log_debug("wpa_pmpro_save_id_before_checkout() - user id: " . $user_id . ". Order ID: " . $morder->code, true);
-    $referrer = sanitize_text_field( $_COOKIE['ap_id'] );
+    $referrer = isset( $_COOKIE['ap_id'] ) ? sanitize_text_field( $_COOKIE['ap_id'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- Kept slashed on purpose to preserve the exact referrer value previously passed to WP Affiliate Platform.
 
     //save affiliate id with the order
     wp_affiliate_log_debug("wpa_pmpro_save_id_before_checkout(). Saving affiliate id (" . $referrer . ") with order id: " . $morder->code, true);
