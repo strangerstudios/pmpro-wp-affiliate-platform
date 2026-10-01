@@ -3,7 +3,7 @@
  * Plugin Name: Paid Memberships Pro - WP Affiliate Platform Integration Add On
  * Plugin URI: https://www.paidmembershipspro.com/add-ons/pmpro-wp-affiliate-platform-integration/
  * Description: Process an affiliate via WP Affiliate Platform after a PMPro checkout.
- * Version: 1.7.3
+ * Version: 1.7.4
  * Author: Stranger Studios, Tips and Tricks HQ
  * Author URI: http://www.strangerstudios.com
  * Text Domain: pmpro-wp-affiliate-platform
