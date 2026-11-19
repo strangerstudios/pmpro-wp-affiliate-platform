@@ -3,7 +3,7 @@ Contributors: strangerstudios
 Tags: paid memberships pro, pmpro, membership, affiliates, wp-affiliate-platform
 Requires at least: 5.0
 Tested up to: 7.1
-Stable tag: 1.7.4
+Stable tag: 1.7.5
 
 Process an affiliate via WP Affiliate Platform after a PMPro checkout.
 
@@ -24,6 +24,10 @@ This plugin requires that both WP Affiliate Platform and Paid Memberships Pro ar
 Please post it in the issues section of GitHub and we'll fix it as soon as we can. Thanks for helping. https://github.com/strangerstudios/pmpro-wp-affiliate-platform/issues
 
 == Changelog ==
+= 1.7.5 - 2026-11-19 =
+* BUG FIX: Fixed a PHP warning when an order is created for a user that no longer exists. #17 (@dparker1005)
+* BUG FIX: Fixed orders without a user being credited to the affiliate from the logged-in user's last order. #17 (@dparker1005)
+
 = 1.7.4 - 2026-10-01 =
 * SECURITY: Improved sanitization and escaping throughout the plugin to resolve Plugin Check security findings. #14 (@dparker1005)
 * ENHANCEMENT: The plugin can now be translated. Added translation files and now loading the `pmpro-wp-affiliate-platform` text domain. #15 (@dparker1005)
