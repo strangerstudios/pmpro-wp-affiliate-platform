@@ -67,6 +67,11 @@ function wpa_pmpro_add_order($morder)
 		return;
 	}
 
+	// Without a user, getLastMemberOrder() would fall back to the current user's orders.
+	if ( empty( $morder->user_id ) ) {
+		return;
+	}
+
 	if(!empty($morder->total) || !empty($morder->subtotal))
 	{
 		if(!empty($morder->total))
@@ -75,7 +80,7 @@ function wpa_pmpro_add_order($morder)
 			$sale_amt = $morder->subtotal;
 		$unique_transaction_id = $morder->code; //TODO - The unique transaction ID for reference
 		$muser = get_userdata($morder->user_id);
-		$email = $muser->user_email; //TODO - Customer email for record
+		$email = empty( $muser->user_email ) ? '' : $muser->user_email; //TODO - Customer email for record
 		
 		//need to get the last order before this
 		$last_order = new MemberOrder();
