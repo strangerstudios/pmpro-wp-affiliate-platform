@@ -67,6 +67,11 @@ function wpa_pmpro_add_order($morder)
 		return;
 	}
 
+	// Without a user, getLastMemberOrder() would fall back to the current user's orders.
+	if ( empty( $morder->user_id ) ) {
+		return;
+	}
+
 	if(!empty($morder->total) || !empty($morder->subtotal))
 	{
 		if(!empty($morder->total))
